@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Curso Inmersión MEL · Caso 1</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#fff;--fg:#333;--muted:#777;--line:#d9c9e3;--head:#dccfe6;--card:#fff;--det:#1f7a55;--neu:#d2b48c;--pro:#7b5ea7;--accent:#1f7a55;--panel:#f7f4fa}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#17141b;--fg:#e8e4ee;--muted:#a59fb0;--line:#4a3f57;--head:#322a3d;--card:#1f1b25;--panel:#221d29}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"DIN Alternate","Segoe UI",system-ui,sans-serif}
+header{background:var(--head);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+header h1{margin:0;font-weight:300;font-size:22px}header h1 b{font-weight:600}
+.brand{font-weight:700;font-size:26px;color:var(--accent);letter-spacing:-1px}
+nav{display:flex;gap:4px;padding:8px 24px 0;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+nav button{border:0;background:none;color:var(--muted);padding:10px 14px;font:inherit;cursor:pointer;border-bottom:3px solid transparent}
+nav button.on{color:var(--fg);border-color:var(--pro);font-weight:600}
+main{padding:20px 24px 90px;max-width:1280px;margin:auto}
+.filters{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:16px;font-size:14px}
+.filters select{font:inherit;padding:4px 8px;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:4px}
+.grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.card{background:var(--card)}
+.card h3{margin:0 0 8px;text-align:center;font-weight:500;font-size:16px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.card small{display:block;text-align:center;color:var(--muted);font-weight:400;font-size:12px}
+.chart{position:relative;height:260px}
+.page{display:none}.page.on{display:block}
+.case h2{color:var(--accent);font-weight:400;text-align:center;font-size:20px}.case h2 b{font-weight:600}
+.case h4{color:var(--accent);margin:22px 0 4px}.case p,.case li{line-height:1.55}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chips button{flex:1;min-width:70px;padding:8px;border:0;background:#ececec;color:#444;font:inherit;cursor:pointer}
+.chips button.on{background:#444;color:#fff}
+.big{position:absolute;inset:auto 0 18%;text-align:center;font-size:56px;color:var(--pro)}
+#chatBtn{position:fixed;right:20px;bottom:20px;background:var(--pro);color:#fff;border:0;border-radius:28px;padding:12px 20px;font:inherit;cursor:pointer;box-shadow:0 4px 14px #0004;z-index:5}
+#chat{position:fixed;right:20px;bottom:76px;width:min(420px,calc(100vw - 32px));height:min(600px,calc(100vh - 110px));background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px #0005;display:none;flex-direction:column;z-index:5}
+#chat.on{display:flex}
+#chat header{padding:10px 14px;border-radius:10px 10px 0 0}#chat header h1{font-size:15px;font-weight:600}
+#msgs{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:8px;font-size:14px}
+.m{padding:8px 11px;border-radius:10px;max-width:90%;white-space:pre-wrap;line-height:1.45}
+.m.u{align-self:flex-end;background:var(--pro);color:#fff}.m.a{align-self:flex-start;background:var(--panel)}.m.t{align-self:flex-start;color:var(--muted);font-size:12px;background:none}
+#cform{display:flex;gap:6px;padding:10px;border-top:1px solid var(--line)}
+#cform input,#keybox input{flex:1;font:inherit;padding:8px;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:6px;min-width:0}
+#cform button,#keybox button{font:inherit;padding:8px 12px;border:0;border-radius:6px;background:var(--accent);color:#fff;cursor:pointer}
+#keybox{padding:10px 12px;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}
+#keybox .row{display:flex;gap:6px;margin-top:6px}
+.sug{display:flex;gap:6px;flex-wrap:wrap}.sug button{font:inherit;font-size:12px;padding:4px 8px;border:1px solid var(--line);background:none;color:var(--fg);border-radius:12px;cursor:pointer}
+</style>
+</head>
+<body>
+<header><h1>Curso Inmersión MEL / <b>CASO 1</b></h1><span class="brand">ZIGLA</span></header>
+<nav id="nav"></nav>
+<main>
+<section class="page case" id="p0">
+  <h2>Caso práctico: <b>Decisiones basadas en evidencia</b></h2>
+  <h4>¿De qué trata el programa?</h4>
+  <p>Los jóvenes crean, organizan y gestionan un emprendimiento. Trabajan guiados por sus docentes y por un tutor de la organización durante el horario de clases y potencian la experiencia de aprendizaje mediante actividades extracurriculares. Transitan los pasos necesarios para poner en marcha un proyecto y descubren la importancia de asumir riesgos, tomar decisiones y trabajar en equipo.</p>
+  <h4>¿Cuál es la situación?</h4>
+  <p>El director de la organización tiene que enviar un reporte para rendirle cuentas a sus donantes con los resultados del programa. Al analizar la encuesta de satisfacción resulta evidente que el indicador <b>seleccionado para medirlo, el NPS, está lejos de la meta establecida en marco lógico del proyecto.</b></p>
+  <h4>Consigna</h4>
+  <p><b>Ayuda al director de la organización a entender cuál es la causa detrás de los bajos índices de satisfacción con el programa.</b></p>
+  <ol><li>¿Cuál o cuáles son las variables relacionadas con el nivel de satisfacción general con el programa?</li><li>¿Cuál de estas variables crees que es la verdadera causa detrás de los bajos índices de satisfacción?</li><li>¿Qué decisión tomarías a partir del análisis de este tablero?</li></ol>
+</section>
+
+<section class="page" id="p1"><div class="filters" data-f></div><div class="grid">
+  <div class="card"><h3>Sector</h3><div class="chart"><canvas id="c_sector"></canvas></div></div>
+  <div class="card"><h3>Net Promoter Score</h3><div class="chart"><canvas id="c_gauge"></canvas><div class="big" id="gaugeN"></div></div></div>
+  <div class="card"><h3>Distribución del NPS</h3><div class="chart"><canvas id="c_dist"></canvas></div></div>
+  <div class="card"><h3>Género</h3><div class="chart"><canvas id="c_gen"></canvas></div></div>
+  <div class="card"><h3>Opinión sobre el acompañamiento del DOCENTE<small>(1=Nada satisfecho, 5=Muy satisfecho)</small></h3><div class="chart"><canvas id="c_doc"></canvas></div></div>
+  <div class="card"><h3>Opinión sobre el acompañamiento del TUTOR<small>(1=Nada satisfecho, 5=Muy satisfecho)</small></h3><div class="chart"><canvas id="c_tut"></canvas></div></div>
+</div></section>
+
+<section class="page" id="p2"><div class="filters" data-f></div><div class="grid">
+  <div class="card"><h3>Distribución del NPS por Género</h3><div class="chart"><canvas id="s_gen"></canvas></div></div>
+  <div class="card"><h3>Distribución del NPS por Sector</h3><div class="chart"><canvas id="s_sec"></canvas></div></div>
+  <div class="card"><h3>Distribución del NPS por valoración del acompañamiento DOCENTE</h3><div class="chart"><canvas id="s_doc"></canvas></div></div>
+  <div class="card"><h3>Distribución del NPS por valoración del acompañamiento TUTOR</h3><div class="chart"><canvas id="s_tut"></canvas></div></div>
+</div></section>
+
+<section class="page" id="p3">
+  <h3 style="text-align:center;font-weight:500">Seleccioná el/los tutores para los cuáles desea ver el NPS</h3>
+  <div class="chips" id="chips"></div>
+  <div class="grid">
+    <div class="card"><h3>Net Promoter Score</h3><div class="chart" style="height:320px"><canvas id="t_gauge"></canvas><div class="big" id="tGaugeN"></div></div></div>
+    <div class="card" style="grid-column:span 2;min-width:0"><h3>NPS por Tutor y Sector</h3><div class="chart" style="height:340px"><canvas id="t_bar"></canvas></div></div>
+  </div>
+</section>
+</main>
+
+<button id="chatBtn">💬 Preguntale a los datos</button>
+<div id="chat">
+  <header><h1>Asistente de datos</h1><button id="chatX" style="background:none;border:0;color:inherit;font-size:20px;cursor:pointer">×</button></header>
+  <div id="keybox">Pegá tu API key de Anthropic. Se guarda solo en este navegador y se envía únicamente a api.anthropic.com.
+    <div class="row"><input id="keyIn" type="password" placeholder="sk-ant-..." autocomplete="off"><button id="keySave">Guardar</button></div></div>
+  <div id="msgs"></div>
+  <form id="cform"><input id="q" placeholder="Preguntá algo sobre los datos…" autocomplete="off"><button>Enviar</button></form>
+</div>
+
+<script src="datos.js"></script>
+<script>
+const D = window.DATOS;
+const C = {det:'#1f7a55', neu:'#d2b48c', pro:'#7b5ea7'};
+const SEG = [['Detractores',C.det],['Neutrales',C.neu],['Promotores',C.pro]];
+const pct = (a,b)=> b ? a/b*100 : 0;
+const fmt = x => x.toFixed(2).replace('.',',')+'%';
+const npsOf = rows => rows.length ? Math.round((rows.filter(r=>r.nps_texto==='Promotores').length - rows.filter(r=>r.nps_texto==='Detractores').length)/rows.length*100) : 0;
+const uniq = k => [...new Set(D.map(r=>r[k]))].sort((a,b)=>String(a).localeCompare(String(b),'es',{numeric:true}));
+const TUTORES = uniq('tutor');
+
+/* ---------- navegación y filtros ---------- */
+const PAGES = ['Caso','Resumen','NPS por segmento','NPS por tutor'];
+const nav = document.getElementById('nav');
+PAGES.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;b.onclick=()=>show(i);nav.append(b)});
+function show(i){document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('on',i===j));[...nav.children].forEach((b,j)=>b.classList.toggle('on',i===j));try{location.hash=i}catch{}}
+const F = {sector:'', genero:''};
+document.querySelectorAll('[data-f]').forEach(el=>{
+  el.innerHTML = `<label>Sector <select data-k="sector"><option value="">Todos</option>${uniq('sector').map(s=>`<option>${s}</option>`).join('')}</select></label>
+  <label>Género <select data-k="genero"><option value="">Todos</option>${uniq('genero').map(s=>`<option>${s}</option>`).join('')}</select></label>`;
+  el.querySelectorAll('select').forEach(s=>s.onchange=()=>{F[s.dataset.k]=s.value;document.querySelectorAll('[data-f] select').forEach(x=>x.value=F[x.dataset.k]);render()});
+});
+const filtered = ()=>D.filter(r=>(!F.sector||r.sector===F.sector)&&(!F.genero||r.genero===F.genero));
+
+/* ---------- gráficos ---------- */
+const charts = {};
+function draw(id,cfg){charts[id]?.destroy();charts[id]=new Chart(document.getElementById(id),cfg)}
+const base = {responsive:true,maintainAspectRatio:false};
+function donut(id,rows,key,colors){
+  const labels=[...new Set(rows.map(r=>r[key]))]; const data=labels.map(l=>rows.filter(r=>r[key]===l).length); const t=data.reduce((a,b)=>a+b,0);
+  draw(id,{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:labels.map((l,i)=>colors[l]||Object.values(colors)[i%3]),borderWidth:0}]},
+    options:{...base,cutout:'60%',plugins:{legend:{position:'right'},tooltip:{callbacks:{label:c=>`${c.label}: ${c.raw} (${fmt(pct(c.raw,t))})`}}}}});
+}
+function gauge(id,numId,val){
+  const v=Math.max(-100,Math.min(100,val)); const f=(v+100)/200;
+  draw(id,{type:'doughnut',data:{datasets:[{data:[f,1-f],backgroundColor:[C.det,'#f0eef2'],borderWidth:0}]},
+    options:{...base,rotation:-90,circumference:180,cutout:'68%',plugins:{legend:{display:false},tooltip:{enabled:false}}}});
+  document.getElementById(numId).textContent=val;
+}
+function stack100(id,rows,key,order,xTitle){
+  const cats=order||[...new Set(rows.map(r=>r[key]))].sort();
+  draw(id,{type:'bar',data:{labels:cats,datasets:SEG.map(([n,c])=>({label:n,backgroundColor:c,data:cats.map(k=>{const g=rows.filter(r=>String(r[key])===String(k));return pct(g.filter(r=>r.nps_texto===n).length,g.length)})}))},
+    options:{...base,scales:{x:{stacked:true,title:{display:!!xTitle,text:xTitle}},y:{stacked:true,max:100,ticks:{callback:v=>v+'%'}}},plugins:{tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${fmt(c.raw)}`}}}}});
+}
+function hbar(id,rows,key){
+  const data=[5,4,3,2,1].map(k=>rows.filter(r=>r[key]===k).length); const t=data.reduce((a,b)=>a+b,0);
+  draw(id,{type:'bar',data:{labels:['5','4','3','2','1'],datasets:[{data,backgroundColor:C.det}]},
+    options:{...base,indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw} (${fmt(pct(c.raw,t))})`}}},scales:{x:{display:false}}}});
+}
+let selTut = new Set(['Tutor 6']);
+const chips=document.getElementById('chips');
+TUTORES.forEach(t=>{const b=document.createElement('button');b.textContent=t;b.onclick=()=>{selTut.has(t)?selTut.delete(t):selTut.add(t);renderTut()};chips.append(b)});
+function renderTut(){
+  [...chips.children].forEach(b=>b.classList.toggle('on',selTut.has(b.textContent)));
+  const rows=D.filter(r=>!selTut.size||selTut.has(r.tutor)); gauge('t_gauge','tGaugeN',npsOf(rows));
+  const sectors=uniq('sector'); const col={Estatal:C.det,Privada:C.neu};
+  draw('t_bar',{type:'bar',data:{labels:TUTORES,datasets:sectors.map(s=>({label:s,backgroundColor:col[s],data:TUTORES.map(t=>{const g=D.filter(r=>r.tutor===t&&r.sector===s);return g.length?npsOf(g):null})}))},
+    options:{...base,scales:{y:{title:{display:true,text:'NPS'},min:-100,max:100}},plugins:{legend:{position:'top',align:'start'}}}});
+}
+function render(){
+  const rows=filtered();
+  donut('c_sector',rows,'sector',{Estatal:C.det,Privada:C.neu});
+  gauge('c_gauge','gaugeN',npsOf(rows));
+  const t=rows.length;
+  draw('c_dist',{type:'bar',data:{labels:[''],datasets:SEG.map(([n,c])=>({label:n,backgroundColor:c,data:[pct(rows.filter(r=>r.nps_texto===n).length,t)]}))},
+    options:{...base,indexAxis:'y',scales:{x:{stacked:true,max:100,ticks:{callback:v=>v+'%'}},y:{stacked:true,display:false}},plugins:{tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${fmt(c.raw)}`}}}}});
+  donut('c_gen',rows,'genero',{Femenino:C.det,Masculino:C.neu,Otro:C.pro,'Sin dato':'#bbb'});
+  hbar('c_doc',rows,'eval_docente'); hbar('c_tut',rows,'eval_tutor');
+  stack100('s_gen',rows.filter(r=>r.genero!=='Sin dato'),'genero',['Femenino','Masculino','Otro'],'¿Con qué género te identificas?');
+  stack100('s_sec',rows,'sector',['Estatal','Privada'],'Sector');
+  stack100('s_doc',rows,'eval_docente',[1,2,3,4,5],'¿Cómo evalúas el acompañamiento de tu profesor para desarrollar el programa?');
+  stack100('s_tut',rows,'eval_tutor',[1,2,3,4,5],'¿Cómo evalúas el acompañamiento de tu tutor para desarrollar el programa?');
+  renderTut();
+}
+
+/* ---------- chat con la API de Anthropic ---------- */
+const MODEL='claude-sonnet-5-5';
+const SYSTEM=`Sos un asistente de análisis de datos para el "Curso Inmersión MEL · Caso 1" de ZIGLA. Los datos son ${D.length} respuestas de la encuesta de satisfacción de alumnos de un programa de emprendimiento joven. Columnas: sector (Estatal/Privada), genero, tutor (Tutor 1..9), docente, eval_docente y eval_tutor (1 a 5), recomienda (0 a 10), nps_texto (Detractores/Neutrales/Promotores), edad. NPS = %promotores - %detractores (meta del proyecto: 40). Para cualquier cifra usá SIEMPRE la herramienta consultar_datos; no inventes números. Respondé en español rioplatense, breve y con los números concretos. Ayudá a razonar: señalá qué variables se asocian con el NPS y aclará que asociación no es causalidad; no des la "respuesta correcta" del caso, guiá con preguntas y evidencia.`;
+const TOOLS=[{name:'consultar_datos',description:'Agrupa las respuestas por una o más columnas, con filtros opcionales, y devuelve para cada grupo: n, nps, % detractores/neutrales/promotores y promedios de eval_docente, eval_tutor y recomienda.',
+  input_schema:{type:'object',properties:{agrupar_por:{type:'array',items:{type:'string',enum:['sector','genero','tutor','docente','eval_docente','eval_tutor','edad']},description:'Columnas para agrupar; vacío = total'},filtros:{type:'object',description:'Igualdad por columna, ej {"sector":"Estatal","tutor":"Tutor 4"}',additionalProperties:true},min_n:{type:'integer',description:'Ocultar grupos con menos respuestas (default 1)'}}}}];
+function consultar({agrupar_por=[],filtros={},min_n=1}){
+  let rows=D.filter(r=>Object.entries(filtros).every(([k,v])=>String(r[k])===String(v)));
+  const g={}; rows.forEach(r=>{const k=agrupar_por.map(c=>r[c]).join(' | ')||'Total';(g[k]??=[]).push(r)});
+  const avg=(a,k)=>+(a.reduce((s,r)=>s+r[k],0)/a.length).toFixed(2);
+  const out=Object.entries(g).filter(([,a])=>a.length>=min_n).map(([k,a])=>({grupo:k,n:a.length,nps:npsOf(a),pct_detractores:+pct(a.filter(r=>r.nps_texto==='Detractores').length,a.length).toFixed(1),pct_neutrales:+pct(a.filter(r=>r.nps_texto==='Neutrales').length,a.length).toFixed(1),pct_promotores:+pct(a.filter(r=>r.nps_texto==='Promotores').length,a.length).toFixed(1),prom_eval_docente:avg(a,'eval_docente'),prom_eval_tutor:avg(a,'eval_tutor'),prom_recomienda:avg(a,'recomienda')}));
+  return out.slice(0,60);
+}
+const msgs=document.getElementById('msgs'), chat=document.getElementById('chat');
+const store={get:k=>{try{return localStorage.getItem(k)}catch{return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch{}}};
+let KEY=store.get('mel_key')||''; let hist=[];
+const keybox=document.getElementById('keybox');
+function syncKey(){keybox.style.display=KEY?'none':'block'}
+document.getElementById('keySave').onclick=()=>{KEY=document.getElementById('keyIn').value.trim();if(KEY){store.set('mel_key',KEY);document.getElementById('keyIn').value=''}syncKey()};
+document.getElementById('chatBtn').onclick=()=>{chat.classList.toggle('on');if(!msgs.children.length)intro()};
+document.getElementById('chatX').onclick=()=>chat.classList.remove('on');
+function add(cls,txt){const d=document.createElement('div');d.className='m '+cls;d.textContent=txt;msgs.append(d);msgs.scrollTop=1e9;return d}
+function intro(){
+  add('a','Hola, puedo consultar estos datos y ayudarte a analizarlos. Probá con:');
+  const s=document.createElement('div');s.className='sug';
+  ['¿Cómo varía el NPS según la valoración del tutor?','¿Qué tutores tienen el NPS más bajo?','¿Hay diferencia por sector?'].forEach(t=>{const b=document.createElement('button');b.textContent=t;b.onclick=()=>send(t);s.append(b)});
+  msgs.append(s);
+  const out=document.createElement('div');out.className='m t';out.innerHTML='<a href="#" id="clr" style="color:inherit">Borrar clave guardada</a>';msgs.append(out);
+  out.querySelector('a').onclick=e=>{e.preventDefault();KEY='';try{localStorage.removeItem('mel_key')}catch{}syncKey()};
+}
+async function api(){
+  const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','x-api-key':KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:MODEL,max_tokens:1500,system:SYSTEM,tools:TOOLS,messages:hist})});
+  const j=await res.json(); if(!res.ok) throw new Error(j.error?.message||res.statusText); return j;
+}
+async function send(text){
+  if(!KEY){syncKey();add('t','Primero pegá tu API key arriba.');return}
+  add('u',text); hist.push({role:'user',content:text}); const wait=add('t','Pensando…');
+  try{
+    for(let i=0;i<6;i++){
+      const j=await api(); hist.push({role:'assistant',content:j.content});
+      const uses=j.content.filter(c=>c.type==='tool_use');
+      if(!uses.length){wait.remove();add('a',j.content.filter(c=>c.type==='text').map(c=>c.text).join('\n'));return}
+      wait.textContent='Consultando datos…';
+      hist.push({role:'user',content:uses.map(u=>({type:'tool_result',tool_use_id:u.id,content:JSON.stringify(consultar(u.input))}))});
+    }
+    wait.remove();add('t','Demasiadas consultas seguidas; reformulá la pregunta.');
+  }catch(e){wait.remove();hist.pop();add('t','Error: '+e.message)}
+}
+document.getElementById('cform').onsubmit=e=>{e.preventDefault();const q=document.getElementById('q');const t=q.value.trim();if(t){q.value='';send(t)}};
+syncKey(); render(); show(+(location.hash.slice(1))||1);
+</script>
+</body>
+</html>
